@@ -735,13 +735,16 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
 
             if (resultUri != null) {
                 try {
+                    File resized = null;
                     if (width > 0 && height > 0) {
-                        File resized = compression.resize(this.reactContext, resultUri.getPath(), width, height, 100);
+                        resized = compression.resize(this.reactContext, resultUri.getPath(), width, height, 100);
                         resultUri = Uri.fromFile(resized);
                     }
 
                     WritableMap result = getSelection(activity, resultUri, false);
-
+                    if (resized != null) {
+                        resized.delete();
+                    }
                     if (result != null) {
                         result.putMap("cropRect", PickerModule.getCroppedRectMap(data));
 

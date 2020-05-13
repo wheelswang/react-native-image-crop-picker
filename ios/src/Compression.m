@@ -44,12 +44,12 @@
     int newWidth = 0;
     int newHeight = 0;
     
-    if (maxWidth < maxHeight) {
-        newWidth = maxWidth;
-        newHeight = (oldHeight / oldWidth) * newWidth;
-    } else {
+    if (maxWidth / maxHeight > oldWidth / oldHeight) {
         newHeight = maxHeight;
         newWidth = (oldWidth / oldHeight) * newHeight;
+    } else {
+        newWidth = maxWidth;
+        newHeight = (oldHeight / oldWidth) * newWidth;
     }
     CGSize newSize = CGSizeMake(newWidth, newHeight);
     

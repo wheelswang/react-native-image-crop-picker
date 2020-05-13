@@ -6,6 +6,8 @@
 
 iOS/Android image picker with support for camera, video, configurable compression, multiple images and cropping
 
+this branch fixed compressImageMaxWidth and compressImageMaxHeight bug
+
 ## Result
 
 <p align="left">

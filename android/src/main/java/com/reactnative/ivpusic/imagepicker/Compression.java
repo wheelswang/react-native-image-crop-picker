@@ -36,6 +36,11 @@ class Compression {
         // Use original image exif orientation data to preserve image orientation for the resized bitmap
         ExifInterface originalExif = new ExifInterface(originalImagePath);
         int originalOrientation = originalExif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+        if (originalOrientation == ExifInterface.ORIENTATION_ROTATE_90 || originalOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            int tmp = maxWidth;
+            maxWidth = maxHeight;
+            maxHeight = tmp;
+        }
 
         Matrix rotationMatrix = new Matrix();
         int rotationAngleInDegrees = getRotationInDegreesForOrientationTag(originalOrientation);
@@ -47,7 +52,7 @@ class Compression {
         int finalWidth = maxWidth;
         int finalHeight = maxHeight;
 
-        if (ratioMax > 1) {
+        if (ratioMax > ratioBitmap) {
             finalWidth = (int) ((float) maxHeight * ratioBitmap);
         } else {
             finalHeight = (int) ((float) maxWidth / ratioBitmap);
