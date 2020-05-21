@@ -68,7 +68,7 @@ class Compression {
             imageDirectory.mkdirs();
         }
 
-        File resizeImageFile = new File(imageDirectory, UUID.randomUUID() + ".jpg");
+        File resizeImageFile = new File(imageDirectory, "react-native-image-crop-picker-" + UUID.randomUUID() + ".jpg");
 
         OutputStream os = new BufferedOutputStream(new FileOutputStream(resizeImageFile));
         resized.compress(Bitmap.CompressFormat.JPEG, quality, os);

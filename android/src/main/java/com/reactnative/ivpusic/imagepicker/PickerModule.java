@@ -169,6 +169,14 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
                     if (!file.exists()) throw new Exception("File does not exist");
 
                     module.deleteRecursive(file);
+
+                    File picPath = reactContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                    for (File child : picPath.listFiles()) {
+                        if (child.getName().indexOf("react-native-image-crop-picker") == 0) {
+                            child.delete();
+                        }
+                    }
+
                     promise.resolve(null);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -786,7 +794,7 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
 
     private File createImageFile() throws IOException {
 
-        String imageFileName = "image-" + UUID.randomUUID().toString();
+        String imageFileName = "react-native-image-crop-picker-image-" + UUID.randomUUID().toString();
         File path = this.reactContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         if (!path.exists() && !path.isDirectory()) {
